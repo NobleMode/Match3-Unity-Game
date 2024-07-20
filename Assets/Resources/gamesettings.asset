@@ -18,3 +18,18 @@ MonoBehaviour:
   LevelMoves: 16
   LevelTime: 30
   TimeForHint: 5
+  itemConfigList:
+  - PrefabType: 0
+    PrefabName: itemNormal01
+  - PrefabType: 1
+    PrefabName: itemNormal02
+  - PrefabType: 2
+    PrefabName: itemNormal03
+  - PrefabType: 3
+    PrefabName: itemNormal04
+  - PrefabType: 4
+    PrefabName: itemNormal05
+  - PrefabType: 5
+    PrefabName: itemNormal06
+  - PrefabType: 6
+    PrefabName: itemNormal07

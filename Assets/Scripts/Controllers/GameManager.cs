@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
 
     private GameSettings m_gameSettings;
 
-
     private BoardController m_boardController;
 
     private UIMainManager m_uiMenu;
