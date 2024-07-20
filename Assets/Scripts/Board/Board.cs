@@ -25,6 +25,8 @@ public class Board
 
     private int m_matchMin;
 
+    private GameSettings m_gameSettings;
+
     public Board(Transform transform, GameSettings gameSettings)
     {
         m_root = transform;
@@ -35,6 +37,8 @@ public class Board
         this.boardSizeY = gameSettings.BoardSizeY;
 
         m_cells = new Cell[boardSizeX, boardSizeY];
+
+        m_gameSettings = gameSettings;
 
         CreateBoard();
     }
@@ -100,7 +104,7 @@ public class Board
                     }
                 }
 
-                item.SetType(Utils.GetRandomNormalTypeExcept(types.ToArray()));
+                item.SetConfig(m_gameSettings.GetItemConfig(Utils.GetRandomNormalTypeExcept(types.ToArray())));
                 item.SetView();
                 item.SetViewRoot(m_root);
 
@@ -147,7 +151,7 @@ public class Board
 
                 NormalItem item = new NormalItem();
 
-                item.SetType(Utils.GetRandomNormalType());
+                item.SetConfig(m_gameSettings.GetItemConfig(Utils.GetRandomNormalType()));
                 item.SetView();
                 item.SetViewRoot(m_root);
 

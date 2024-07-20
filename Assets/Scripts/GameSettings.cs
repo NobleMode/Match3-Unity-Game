@@ -15,4 +15,30 @@ public class GameSettings : ScriptableObject
     public float LevelTime = 30f;
 
     public float TimeForHint = 5f;
+
+    [SerializeField]
+    private List<ItemConfig> itemConfigList;
+
+    private Dictionary<NormalItem.eNormalType, ItemConfig> itemConfigMap;
+
+    public void Initialize()
+    {
+        itemConfigMap = new Dictionary<NormalItem.eNormalType, ItemConfig>();
+        foreach (var iC in itemConfigList)
+        {
+            itemConfigMap.Add(iC.PrefabType, iC);
+        }
+    }
+
+    public ItemConfig GetItemConfig(NormalItem.eNormalType type)
+    {
+        if (itemConfigMap.TryGetValue(type, out var iC))
+        {
+            return iC;
+        }
+
+        return null;
+    }
 }
+
+
