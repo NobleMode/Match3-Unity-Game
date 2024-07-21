@@ -27,10 +27,18 @@ public class NormalItem : Item
 
     protected override string GetPrefabName() => _itemConfig?.PrefabName;
 
+    //protected override GameObject GetPrefab() => m_gameSettings.NormalItemDict[ItemType];
+
+    protected override Sprite GetVisual() => m_gameSettings.CurrentNormalItemConfig.GetConfig(ItemType).visual;
+
     internal override bool IsSameType(Item other)
     {
         NormalItem it = other as NormalItem;
 
         return it != null && it.ItemType == this.ItemType;
+    }
+
+    public NormalItem(GameSettings gameSettings) : base(gameSettings)
+    {
     }
 }

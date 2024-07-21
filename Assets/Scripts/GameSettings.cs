@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,29 +17,51 @@ public class GameSettings : ScriptableObject
 
     public float TimeForHint = 5f;
 
-    [SerializeField]
-    private List<ItemConfig> itemConfigList;
+    public GameObject CellBGPrefab;
 
-    private Dictionary<NormalItem.eNormalType, ItemConfig> itemConfigMap;
+    public GameObject ItemPrefab;
 
-    public void Initialize()
+    [HideInInspector] public NormalSO CurrentNormalItemConfig;
+
+    [SerializeField] private List<NormalSO> NormalItemConfigList;
+
+    public BonusSO BonusItemConfig;
+
+    private int configIndex = 0;
+
+    public void Init()
     {
-        itemConfigMap = new Dictionary<NormalItem.eNormalType, ItemConfig>();
-        foreach (var iC in itemConfigList)
+        foreach (var config in NormalItemConfigList)
         {
-            itemConfigMap.Add(iC.PrefabType, iC);
+            config.Init();
         }
+
+        BonusItemConfig.Init();
+
+        CurrentNormalItemConfig = NormalItemConfigList[configIndex];
     }
 
-    public ItemConfig GetItemConfig(NormalItem.eNormalType type)
+    public ItemConfig GetItemConfig(NormalItem.eNormalType eNormalType)
     {
-        if (itemConfigMap.TryGetValue(type, out var iC))
+        var NormalItemDict = CurrentNormalItemConfig.NormalItemDict;
+        if (NormalItemDict.ContainsKey(eNormalType))
         {
-            return iC;
+            return new ItemConfig
+            {
+                PrefabType = eNormalType
+            };
         }
-
         return null;
     }
+
+    public void CycleTheme(){
+        configIndex = configIndex == NormalItemConfigList.Count - 1 ? 0 : configIndex + 1;
+
+        CurrentNormalItemConfig = NormalItemConfigList[configIndex]; 
+    }
 }
+
+
+
 
 

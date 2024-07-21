@@ -11,22 +11,48 @@ public class Item
 
     public Transform View { get; private set; }
 
+    private GameObject prefab;
+
+    protected GameSettings m_gameSettings;
+
+    public Item(GameSettings gameSettings)
+    {
+        m_gameSettings = gameSettings;
+    }
+
+    //public virtual void SetView()
+    //{
+    //    string prefabname = GetPrefabName();
+
+    //    if (!string.IsNullOrEmpty(prefabname))
+    //    {
+    //        GameObject prefab = Resources.Load<GameObject>(prefabname);
+    //        if (prefab)
+    //        {
+    //            View = GameObject.Instantiate(prefab).transform;
+    //        }
+    //    }
+    //}
 
     public virtual void SetView()
     {
-        string prefabname = GetPrefabName();
+        //prefab = GetPrefab();
+        prefab = m_gameSettings.ItemPrefab;
 
-        if (!string.IsNullOrEmpty(prefabname))
+        if (prefab)
         {
-            GameObject prefab = Resources.Load<GameObject>(prefabname);
-            if (prefab)
-            {
-                View = GameObject.Instantiate(prefab).transform;
-            }
+            View = GameObject.Instantiate(prefab).transform;
+
+            View.GetComponent<SpriteRenderer>().sprite = GetVisual();
         }
     }
 
+
+
     protected virtual string GetPrefabName() { return string.Empty; }
+    protected virtual GameObject GetPrefab() { return null; }
+
+    protected virtual Sprite GetVisual() { return null; }
 
     public virtual void SetCell(Cell cell)
     {

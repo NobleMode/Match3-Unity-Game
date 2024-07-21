@@ -41,6 +41,16 @@ public class BonusItem : Item
         return prefabname;
     }
 
+    //protected override GameObject GetPrefab()
+    //{
+    //    return m_gameSettings.BonusItemDict[ItemType];
+    //}
+
+    protected override Sprite GetVisual()
+    {
+        return m_gameSettings.BonusItemConfig.GetConfig(ItemType).visual;
+    }
+
     internal override bool IsSameType(Item other)
     {
         BonusItem it = other as BonusItem;
@@ -169,5 +179,9 @@ public class BonusItem : Item
             list[i].ExplodeItem();
         }
 
+    }
+
+    public BonusItem(GameSettings gameSettings) : base(gameSettings)
+    {
     }
 }

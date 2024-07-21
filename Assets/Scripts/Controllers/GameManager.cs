@@ -36,11 +36,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private GameSettings m_gameSettings;
+    [SerializeField] private GameSettings m_gameSettings;
 
+    [SerializeField] private UIMainManager UIMenu;
+ 
     private BoardController m_boardController;
-
-    private UIMainManager m_uiMenu;
 
     private LevelCondition m_levelCondition;
 
@@ -48,11 +48,14 @@ public class GameManager : MonoBehaviour
     {
         State = eStateGame.SETUP;
 
-        m_gameSettings = Resources.Load<GameSettings>(Constants.GAME_SETTINGS_PATH);
-        m_gameSettings.Initialize();
+        m_gameSettings.Init();
 
-        m_uiMenu = FindObjectOfType<UIMainManager>();
-        m_uiMenu.Setup(this);
+        if (!UIMenu)
+        {
+            UIMenu = GameObject.FindWithTag("UI").GetComponent<UIMainManager>();
+        }
+
+        UIMenu.Setup(this);
     }
 
     void Start()
@@ -82,17 +85,27 @@ public class GameManager : MonoBehaviour
         if (mode == eLevelMode.MOVES)
         {
             m_levelCondition = this.gameObject.AddComponent<LevelMoves>();
-            m_levelCondition.Setup(m_gameSettings.LevelMoves, m_uiMenu.GetLevelConditionView(), m_boardController);
+            m_levelCondition.Setup(m_gameSettings.LevelMoves, UIMenu.GetLevelConditionView(), m_boardController);
         }
         else if (mode == eLevelMode.TIMER)
         {
             m_levelCondition = this.gameObject.AddComponent<LevelTime>();
-            m_levelCondition.Setup(m_gameSettings.LevelMoves, m_uiMenu.GetLevelConditionView(), this);
+            m_levelCondition.Setup(m_gameSettings.LevelMoves, UIMenu.GetLevelConditionView(), this);
         }
 
         m_levelCondition.ConditionCompleteEvent += GameOver;
 
         State = eStateGame.GAME_STARTED;
+    }
+
+    public void CycleTheme()
+    {
+        m_gameSettings.CycleTheme();
+    }
+
+    public string GetCurrentThemeName()
+    {
+        return m_gameSettings.CurrentNormalItemConfig.ThemeName;
     }
 
     public void GameOver()

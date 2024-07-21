@@ -13,23 +13,17 @@ MonoBehaviour:
   m_Name: gamesettings
   m_EditorClassIdentifier: 
   BoardSizeX: 5
-  BoardSizeY: 7
+  BoardSizeY: 5
   MatchesMin: 3
   LevelMoves: 16
   LevelTime: 30
   TimeForHint: 5
-  itemConfigList:
-  - PrefabType: 0
-    PrefabName: prefabs/itemNormal01
-  - PrefabType: 1
-    PrefabName: prefabs/itemNormal02
-  - PrefabType: 2
-    PrefabName: prefabs/itemNormal03
-  - PrefabType: 3
-    PrefabName: prefabs/itemNormal04
-  - PrefabType: 4
-    PrefabName: prefabs/itemNormal05
-  - PrefabType: 5
-    PrefabName: prefabs/itemNormal06
-  - PrefabType: 6
-    PrefabName: prefabs/itemNormal07
+  CellBGPrefab: {fileID: 1645311756642076403, guid: 36ec5f479201921458e80cc24e85189a,
+    type: 3}
+  ItemPrefab: {fileID: 1645311756642076403, guid: de4ff9b432777d4418a559423f6867cd,
+    type: 3}
+  CurrentNormalItemConfig: {fileID: 0}
+  NormalItemConfigList:
+  - {fileID: 11400000, guid: 01f32668bb4d0844698d383a6a48fa1b, type: 2}
+  - {fileID: 11400000, guid: 17b264152258fa646b71b0316c500e7b, type: 2}
+  BonusItemConfig: {fileID: 11400000, guid: 0e5087998c5bc5c4b8491ba4ae9125cd, type: 2}
