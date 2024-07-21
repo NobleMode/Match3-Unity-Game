@@ -88,6 +88,11 @@ public class UIMainManager : MonoBehaviour
         }
     }
 
+    internal void RestartLevel()
+    {
+        m_gameManager.RestartLevel();
+    }
+
     internal Text GetLevelConditionView()
     {
         UIPanelGame game = m_menuList.Where(x => x is UIPanelGame).Cast<UIPanelGame>().FirstOrDefault();

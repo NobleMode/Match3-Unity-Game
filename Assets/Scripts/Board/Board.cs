@@ -172,6 +172,18 @@ public class Board
         }
     }
 
+    internal void RemoveAllItems()
+    {
+        for (int x = 0; x < boardSizeX; x++)
+        {
+            for (int y = 0; y < boardSizeY; y++)
+            {
+                Cell cell = m_cells[x, y];
+                cell.RemoveItem();
+            }
+        }
+    }
+
     public void Swap(Cell cell1, Cell cell2, Action callback)
     {
         Item item = cell1.Item;
@@ -663,7 +675,7 @@ public class Board
         }
     }
 
-    public void Clear()
+    public void RemoveBoard()
     {
         for (int x = 0; x < boardSizeX; x++)
         {
