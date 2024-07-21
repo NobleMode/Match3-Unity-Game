@@ -150,7 +150,41 @@ public class Board
 
                 NormalItem item = new NormalItem(m_gameSettings);
 
-                item.SetConfig(m_gameSettings.GetItemConfig(Utils.GetRandomNormalType()));
+                List<NormalItem> normalItemList = new List<NormalItem>();
+
+                List<Cell> surroundingCells = new List<Cell>
+                {
+                    cell.NeighbourLeft,
+                    cell.NeighbourRight,
+                    cell.NeighbourBottom,
+                    cell.NeighbourUp
+                };
+
+                foreach (var cellTemp in surroundingCells)
+                {
+                    if (!cellTemp) continue;
+
+                    if (!cellTemp.IsEmpty)
+                    {
+                        if (cellTemp.Item.GetType().Equals(typeof(NormalItem)))
+                        {
+                            NormalItem tempNormalItem = (NormalItem)cellTemp.Item;
+                            if (tempNormalItem != null)
+                            {
+                                normalItemList.Add(tempNormalItem);
+                            }
+                        }
+                    }
+                }
+
+                List<NormalItem.eNormalType> normalTypeList = new List<NormalItem.eNormalType>();
+
+                foreach (var normalItem in normalItemList)
+                {
+                    normalTypeList.Add(normalItem.ItemType);
+                }
+
+                item.SetConfig(m_gameSettings.GetItemConfig(Utils.GetRandomNormalTypeExcept(normalTypeList.ToArray())));
                 item.SetView();
                 item.SetViewRoot(m_root);
 
